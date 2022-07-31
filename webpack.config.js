@@ -36,22 +36,26 @@ module.exports = () => ({
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.ts$/i,
         use: 'ts-loader',
-        include: [path.resolve(__dirname, 'src')]
+        include: [path.resolve(__dirname, 'src')],
       },
       {
         test: /\.svg$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "assets/svg/[name][ext]",
+          filename: 'assets/svg/[name][ext]',
         },
-        use: "svgo-loader",
+        use: 'svgo-loader',
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/i,
-        type: "asset/resource",
-      }
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
@@ -72,16 +76,16 @@ module.exports = () => ({
       inject: true,
       chunks: ['index'],
       filename: './index.html',
-      title: 'Here We Go!'
+      title: 'Main!',
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
       cleanOnceBeforeBuildPatterns: ['**/*', '!.git'],
     }),
-    new EslingPlugin({ extensions: 'ts' })
+    new EslingPlugin({ extensions: 'ts' }),
   ],
-  resolve: 
+  resolve:
     {
-      extensions: ['.ts', '.js']
-    }
+      extensions: ['.ts', '.js'],
+    },
 });
